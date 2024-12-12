@@ -30,16 +30,16 @@ const store = createStore<State>({
     setError(state, error: string | null) {
       state.error = error;
     },
-    setProfile(state, profile: any) {
+    setProfile(state, profile: Profile) {
       state.profile = profile;
     },
-    setEducation(state, education: any) {
+    setEducation(state, education: Education) {
       state.education = education;
     },
-    setExpertise(state, expertise: any) {
+    setExpertise(state, expertise: Expertise) {
       state.expertise = expertise;
     },
-    setExperience(state, experience: any) {
+    setExperience(state, experience: Experience) {
       state.experience = experience;
     },
   },
