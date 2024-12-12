@@ -1,18 +1,22 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <SectionWrapper sectionTitle="Professional Experience" >
+    <ResumeProfessional/>
+  </SectionWrapper>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import ResumeProfessional from '@/components/ResumeProfessional.vue'; 
+import SectionWrapper from '@/components/SectionWrapper.vue';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
-    HelloWorld,
+    ResumeProfessional,
+    SectionWrapper
   },
 });
 </script>
+
+<style>
+</style>
