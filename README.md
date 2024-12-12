@@ -1,24 +1,8 @@
-# vue-resume
+# Resume Implemented in Vue
+This is my resume partially implemented in Vue using:
+* vue router
+* vuex stores
 
-## Project setup
-```
-npm install
-```
+This is partially data driven from calls to https://data.hyperio.us/v1/resume/
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
