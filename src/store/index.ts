@@ -52,7 +52,7 @@ const store = createStore<State>({
       handleFetch(commit,'https://data.hyperio.us/v1/resume/profile','setProfile');
     },
     async fetchEducation({ commit }) {
-      handleFetch(commit,'https://data.hyperio.us/v1/resume/educatiion','setEducation');
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/education','setEducation');
     },
     async fetchExpertise({ commit }) {
       handleFetch(commit,'https://data.hyperio.us/v1/resume/expertise','setExpertise');
