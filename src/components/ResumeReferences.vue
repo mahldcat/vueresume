@@ -1,10 +1,4 @@
 <template>
-    <div class="row banda" v-if="store.loading">
-      <div class="col-1">Loading...</div>
-    </div>
-    <div class="row banda" v-if="store.error">
-      <div class="col-1">{{ store.error }}</div>      
-    </div>
     <template v-if="store.references">
       <div v-for="(r, index) in store.references.references" :key="index" :class="getClass(index)">
             <div class="col-2">
@@ -20,6 +14,15 @@
             </div>
         </div>    
     </template>
+    <div class="row banda" v-else-if="store.loading">
+      <div class="col-1">Loading...</div>
+    </div>
+    <div class="row banda" v-else-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
+    </div>
+    <div class="row banda" v-else>
+      <div class="col-1">Unspecified Error...</div>      
+    </div>
 </template>
 
 <script lang="ts">

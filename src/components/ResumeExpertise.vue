@@ -1,11 +1,6 @@
 <template>
-    <div class="row banda" v-if="store.loading">
-      <div class="col-1">Loading...</div>
-    </div>
-    <div class="row banda" v-if="store.error">
-      <div class="col-1">{{ store.error }}</div>      
-    </div>
-    <div class="row banda"  v-else-if="store.expertise">      
+
+    <div class="row banda"  v-if="store.expertise">      
       <div class='col-4'>                
         <p class='h5'>Technology</p>
         <ul>
@@ -41,6 +36,15 @@
           </li>
         </ul>
       </div>
+    </div>
+    <div class="row banda" v-else-if="store.loading">
+      <div class="col-1">Loading...</div>
+    </div>
+    <div class="row banda" v-else-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
+    </div>
+    <div class="row banda" v-else>
+      <div class="col-1">Unspecified Error...</div>      
     </div>
 </template>
 

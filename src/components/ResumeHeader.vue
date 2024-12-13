@@ -1,7 +1,5 @@
 <template>
-  <div class="header" v-if="store.loading">Loading...</div>
-  <div class="header" v-if="store.error">{{ store.error }}</div>
-  <template v-else-if="store.profile">
+  <template v-if="store.profile">
     <div class="header">
       <h1>{{ store.profile.name }}</h1>
       <div class="contact-info">
@@ -34,6 +32,10 @@
       {{ store.profile.introParagraph }}
     </div>
   </template>
+  <div class="header" v-else-if="store.loading">Loading...</div>
+  <div class="header" v-else-if="store.error">{{ store.error }}</div>
+  <div class="header" v-else>Unexpected Error, Please try again later.</div>
+
 
 </template>
 
