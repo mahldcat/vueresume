@@ -1,8 +1,9 @@
 # Resume Implemented in Vue
 This is my resume partially implemented in Vue using:
 * vue router
-* vuex stores
+* Pinia stores
 
-This is partially data driven from calls to https://data.hyperio.us/v1/resume/
+This is now fully data driven via calls out to https://data.hyperio.us/v1/resume/
+
 
 
