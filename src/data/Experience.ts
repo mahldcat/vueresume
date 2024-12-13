@@ -4,11 +4,12 @@ export interface Experience{
 
 export interface Job{
     startDate:string,
-    sendDate:string,
+    endDate:string,
     companyName: string,
     jobTitle: string,
     teamName: string,
-    jobFunctions: Record<string,string[]>
+    summary: string,
+    jobFunctions: Map<string,string[]>
 }
 
 
