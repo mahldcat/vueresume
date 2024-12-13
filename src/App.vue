@@ -24,6 +24,8 @@
         navData: [
           { name: 'Professional Experience', path: '/' },
           { name: 'Tech Skills', path: '/expertise' },
+          { name: 'Education', path: '/education' },
+          { name: 'References', path: '/references' },
         ] as NavBarData[],
       }
     },
