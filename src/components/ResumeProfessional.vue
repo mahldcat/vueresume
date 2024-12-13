@@ -7,12 +7,12 @@
     </div>
     <template v-if="experience">
         <div v-for="(exp, index) in experience.jobExperience" :key="index" :class="getClass(index)">
-            <div className="col-2">
+            <div class="col-2">
                 {{exp.startDate}}-{{exp.endDate}} {{exp.companyName}}<br/> 
                 {{exp.jobTitle}}<br/> 
                 {{exp.teamName}}
             </div>
-            <div className="col-10">
+            <div class="col-10">
                 <div v-for="(values,key) in exp.jobFunctions" :key="key">
                     <p>{{ key }}</p>
                     <ul>
