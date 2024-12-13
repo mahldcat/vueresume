@@ -39,7 +39,6 @@ export default defineComponent({
   components: {
   },
   setup(){
-    console.log("ResumeHeader.setup()");
     const store = useStore();
 
     const profile = computed<Profile | null>(() => store.getters.profile);
@@ -47,8 +46,6 @@ export default defineComponent({
     const error = computed(() => store.getters.error);
 
     const fetchProfile = () => {
-      console.log("fetching profile from store");
-      
       store.dispatch('fetchProfile');
     };
     

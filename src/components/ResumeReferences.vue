@@ -5,32 +5,30 @@
     <div class="row banda" v-if="error">
       <div class="col-1">{{ error }}</div>      
     </div>
-    <template v-if="experience">
-        <div v-for="(exp, index) in experience.jobExperience" :key="index" :class="getClass(index)">
+    <template v-if="references">
+      <div v-for="(r, index) in references.references" :key="index" :class="getClass(index)">
             <div class="col-2">
-                {{exp.startDate}}-{{exp.endDate}} {{exp.companyName}}<br/> 
-                {{exp.jobTitle}}<br/> 
-                {{exp.teamName}}
+              {{ r.name }}
             </div>
             <div class="col-10">
-                <div v-for="(values,key) in exp.jobFunctions" :key="key">
-                    <p>{{ key }}</p>
-                    <ul>
-                        <li v-for="(val,idx) in values" :key="idx">{{ val }}</li>
-                    </ul>
-                </div>
+              <p>{{ r.description }}</p>
+              <ul>
+                <li>Linked In: {{ r.linkedIn }}</li>
+                <li>Email: {{ r.email }}</li>
+                <li>Phone: {{ r.phone }}</li>
+              </ul>
             </div>
-        </div>
+        </div>    
     </template>
 </template>
 
 <script lang="ts">
 import { defineComponent ,computed,onMounted  } from 'vue';
 import { useStore } from 'vuex';
-import {Experience} from '@/data';
+import {ProfessionalReferences} from '@/data';
 
 export default defineComponent({
-  name: 'ResumeProfessional',
+  name: 'ResumeReferences',
   components: {
   },
   methods: {
@@ -41,21 +39,21 @@ export default defineComponent({
   setup(){
     const store = useStore();
 
-    const experience = computed<Experience | null>(() => store.getters.experience);
+    const references = computed<ProfessionalReferences | null>(() => store.getters.references);
     const loading = computed(() => store.getters.loading);
     const error = computed(() => store.getters.error);
 
-    const fetchExperience = () => {
-      if(!experience.value){
-        store.dispatch('fetchExperience');
+    const fetchReferences = () => {
+      if(!references.value){
+        store.dispatch('fetchReferences');
       }
     };
 
     onMounted(() => {
-        fetchExperience()
+      fetchReferences()
     });
 
-    return { experience, loading, error, fetchExperience };    
+    return { references, loading, error, fetchReferences };    
   }
 });
 </script>

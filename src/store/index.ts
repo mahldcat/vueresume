@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
-import axios from 'axios';
-import { handleApiError } from '@/utils/errorhandler';
-import {Profile,Education,Expertise, Experience,} from '@/data';
+import { handleFetch } from '@/utils/fetchhandler';
+import {Profile,Education,Expertise, Experience,ProfessionalReferences} from '@/data';
 
 // Define state interface
 interface State {
@@ -9,6 +8,7 @@ interface State {
   education: Education | null;
   expertise: Expertise | null;
   experience: Experience | null;
+  references: ProfessionalReferences | null;
   loading: boolean;
   error: string | null;
 }
@@ -22,6 +22,7 @@ const store = createStore<State>({
     experience: null,
     loading: false,
     error: null,
+    references: null,
   },
   mutations: {
     setLoading(state, isLoading: boolean) {
@@ -42,55 +43,25 @@ const store = createStore<State>({
     setExperience(state, experience: Experience) {
       state.experience = experience;
     },
+    setReferences(state, references: ProfessionalReferences){
+      state.references= references;
+    }
   },
   actions: {
     async fetchProfile({ commit }) {
-      commit('setLoading', true);
-      try {
-        const response = await axios.get('https://data.hyperio.us/v1/resume/profile');
-        commit('setProfile', response.data);
-        commit('setError', null);
-      } catch (error) {
-        handleApiError(commit,error);
-      } finally {
-        commit('setLoading', false);
-      }
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/profile','setProfile');
     },
     async fetchEducation({ commit }) {
-      commit('setLoading', true);
-      try {
-        const response = await axios.get('https://data.hyperio.us/v1/resume/education');
-        commit('setEducation', response.data);
-        commit('setError', null);
-      } catch (error) {
-        handleApiError(commit,error);
-      } finally {
-        commit('setLoading', false);
-      }
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/educatiion','setEducation');
     },
     async fetchExpertise({ commit }) {
-      commit('setLoading', true);
-      try {
-        const response = await axios.get('https://data.hyperio.us/v1/resume/expertise');
-        commit('setExpertise', response.data);
-        commit('setError', null);
-      } catch (error) {
-        handleApiError(commit,error);
-      } finally {
-        commit('setLoading', false);
-      }
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/expertise','setExpertise');
     },
     async fetchExperience({ commit }) {
-      commit('setLoading', true);
-      try {
-        const response = await axios.get('https://data.hyperio.us/v1/resume/experience');
-        commit('setExperience', response.data);
-        commit('setError', null);
-      } catch (error) {
-        handleApiError(commit,error);
-      } finally {
-        commit('setLoading', false);
-      }
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/experience','setExperience');
+    },
+    async fetchReferences({commit}){
+      handleFetch(commit,'https://data.hyperio.us/v1/resume/references','setReferences');
     },
   },
   getters: {
@@ -98,6 +69,7 @@ const store = createStore<State>({
     education: (state) => state.education,
     expertise: (state) => state.expertise,
     experience: (state) => state.experience,
+    references: (state) => state.references,
     loading: (state) => state.loading,
     error: (state) => state.error,
   },
