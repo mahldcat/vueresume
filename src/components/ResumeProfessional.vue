@@ -1,12 +1,12 @@
 <template>
-    <div class="row banda" v-if="loading">
+    <div class="row banda" v-if="store.loading">
       <div class="col-1">Loading...</div>
     </div>
-    <div class="row banda" v-if="error">
-      <div class="col-1">{{ error }}</div>      
+    <div class="row banda" v-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
     </div>
-    <template v-if="experience">
-        <div v-for="(exp, index) in experience.jobExperience" :key="index" :class="getClass(index)">
+    <template v-if="store.experience">
+        <div v-for="(exp, index) in store.experience.jobExperience" :key="index" :class="getClass(index)">
             <div class="col-2">
                 {{exp.startDate}}-{{exp.endDate}} {{exp.companyName}}<br/> 
                 {{exp.jobTitle}}<br/> 
@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent ,computed,onMounted  } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent ,onMounted  } from 'vue';
+import { useResumeStore } from '@/store';
 import {Experience} from '@/data';
 
 export default defineComponent({
@@ -39,15 +39,11 @@ export default defineComponent({
     },
   },
   setup(){
-    const store = useStore();
-
-    const experience = computed<Experience | null>(() => store.getters.experience);
-    const loading = computed(() => store.getters.loading);
-    const error = computed(() => store.getters.error);
+    const store = useResumeStore();
 
     const fetchExperience = () => {
-      if(!experience.value){
-        store.dispatch('fetchExperience');
+      if(!store.experience){
+        store.fetchExperience();
       }
     };
 
@@ -55,7 +51,7 @@ export default defineComponent({
         fetchExperience()
     });
 
-    return { experience, loading, error, fetchExperience };    
+    return { store, fetchExperience };    
   }
 });
 </script>

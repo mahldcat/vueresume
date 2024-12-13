@@ -10,8 +10,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import ResumeHeader from '@/components/ResumeHeader.vue';
-  import ResumeNavBar from './components/ResumeNavBar.vue';
-  import { NavBarData } from './data/NavBarData';
+  import ResumeNavBar from '@/components/ResumeNavBar.vue';
+  import { NavBarData } from '@/data/NavBarData';
 
   export default defineComponent({
     name: 'App',
