@@ -1,15 +1,15 @@
 <template>
-    <div class="row banda" v-if="loading">
+    <div class="row banda" v-if="store.loading">
       <div class="col-1">Loading...</div>
     </div>
-    <div class="row banda" v-if="error">
-      <div class="col-1">{{ error }}</div>      
+    <div class="row banda" v-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
     </div>
-    <div class="row banda"  v-else-if="expertise">      
+    <div class="row banda"  v-else-if="store.expertise">      
       <div class='col-4'>                
         <p class='h5'>Technology</p>
         <ul>
-            <li v-for="(tech, index) in expertise.technology" :key="index">
+            <li v-for="(tech, index) in store.expertise.technology" :key="index">
               {{ tech }}
             </li>
         </ul>
@@ -17,13 +17,13 @@
       <div class='col-4'>                
         <p class='h5'>Languages</p>
         <ul>
-          <li v-for="(lang, index) in expertise.languages" :key="index">
+          <li v-for="(lang, index) in store.expertise.languages" :key="index">
               {{ lang }}
           </li>
         </ul>
         <p class='h5'>Development Practices</p>
         <ul>
-          <li v-for="(dprac, index) in expertise.devPractices" :key="index">
+          <li v-for="(dprac, index) in store.expertise.devPractices" :key="index">
               {{ dprac }}
           </li>
         </ul>
@@ -31,7 +31,7 @@
       <div class="col-4">
         <p class="h5">Hobbies</p>
         <ul>
-          <li v-for="(hobby, index) in expertise.hobbies" :key="index">
+          <li v-for="(hobby, index) in store.expertise.hobbies" :key="index">
             {{ hobby.name }}
             <ul v-if="hobby.properties && hobby.properties.length">
               <li v-for="(prop, idx) in hobby.properties" :key="idx">
@@ -45,27 +45,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,computed,onMounted  } from 'vue';
-import { useStore } from 'vuex';
-import {Expertise} from '@/data';
+import { defineComponent,onMounted  } from 'vue';
+import { useResumeStore } from '@/store';
 
 export default defineComponent({
   name: 'ResumeExpertise',
   components: {
   },
   setup(){
-    console.log("ResumeExpertise.setup()");
-    const store = useStore();
-
-    const expertise = computed<Expertise | null>(() => store.getters.expertise);
-    const loading = computed(() => store.getters.loading);
-    const error = computed(() => store.getters.error);
+    const store = useResumeStore();
 
     const fetchExpertise = () => {
-      console.log("fetching expertise from store");
-      
-      if(!expertise.value){
-        store.dispatch('fetchExpertise');
+      if(!store.expertise){
+        store.fetchExpertise();
       }
     };
     
@@ -73,7 +65,7 @@ export default defineComponent({
       fetchExpertise()
     });
 
-    return { expertise, loading, error, fetchExpertise };    
+    return { store, fetchExpertise };    
   }
 });
 </script>

@@ -1,12 +1,12 @@
 <template>
-    <div class="row banda" v-if="loading">
+    <div class="row banda" v-if="store.loading">
       <div class="col-1">Loading...</div>
     </div>
-    <div class="row banda" v-if="error">
-      <div class="col-1">{{ error }}</div>      
+    <div class="row banda" v-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
     </div>
-    <template v-if="education">
-        <div v-for="(ed, index) in education.schools" :key="index" :class="getClass(index)">
+    <template v-if="store.education">
+        <div v-for="(ed, index) in store.education.schools" :key="index" :class="getClass(index)">
           <div class="col-2">{{ ed.name }}</div>
           <div class="col-10">
             <ul>
@@ -20,10 +20,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent ,computed,onMounted  } from 'vue';
-import { useStore } from 'vuex';
-import {Education} from '@/data';
-
+import { defineComponent,onMounted  } from 'vue';
+import { useResumeStore } from '@/store';
 
 export default defineComponent({
   name: 'ResumeEducation',
@@ -38,15 +36,11 @@ export default defineComponent({
   },
 
   setup(){
-    const store = useStore();
-
-    const education = computed<Education | null>(() => store.getters.education);
-    const loading = computed(() => store.getters.loading);
-    const error = computed(() => store.getters.error);
+    const store = useResumeStore();
 
     const fetchEducation = () => {
-      if(!education.value){
-        store.dispatch('fetchEducation');
+      if(!store.education){
+        store.fetchEducation();
       }
     };
 
@@ -54,7 +48,7 @@ export default defineComponent({
       fetchEducation()
     });
 
-    return { education, loading, error, fetchEducation };    
+    return { store, fetchEducation };    
   },
 });
 

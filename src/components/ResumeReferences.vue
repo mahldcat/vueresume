@@ -1,12 +1,12 @@
 <template>
-    <div class="row banda" v-if="loading">
+    <div class="row banda" v-if="store.loading">
       <div class="col-1">Loading...</div>
     </div>
-    <div class="row banda" v-if="error">
-      <div class="col-1">{{ error }}</div>      
+    <div class="row banda" v-if="store.error">
+      <div class="col-1">{{ store.error }}</div>      
     </div>
-    <template v-if="references">
-      <div v-for="(r, index) in references.references" :key="index" :class="getClass(index)">
+    <template v-if="store.references">
+      <div v-for="(r, index) in store.references.references" :key="index" :class="getClass(index)">
             <div class="col-2">
               {{ r.name }}
             </div>
@@ -24,8 +24,8 @@
 
 <script lang="ts">
 import { defineComponent ,computed,onMounted  } from 'vue';
-import { useStore } from 'vuex';
-import {ProfessionalReferences} from '@/data';
+import { useResumeStore } from '@/store';
+
 
 export default defineComponent({
   name: 'ResumeReferences',
@@ -37,15 +37,11 @@ export default defineComponent({
     },
   },
   setup(){
-    const store = useStore();
-
-    const references = computed<ProfessionalReferences | null>(() => store.getters.references);
-    const loading = computed(() => store.getters.loading);
-    const error = computed(() => store.getters.error);
+    const store = useResumeStore();
 
     const fetchReferences = () => {
-      if(!references.value){
-        store.dispatch('fetchReferences');
+      if(!store.references ){
+        store.fetchReferences();
       }
     };
 
@@ -53,7 +49,7 @@ export default defineComponent({
       fetchReferences()
     });
 
-    return { references, loading, error, fetchReferences };    
+    return { store, fetchReferences };    
   }
 });
 </script>
